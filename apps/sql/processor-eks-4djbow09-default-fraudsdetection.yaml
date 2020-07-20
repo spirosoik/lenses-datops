@@ -1,0 +1,33 @@
+name: FraudsDetection
+sql: |-
+  SET defaults.topic.autocreate=true;
+  SET `auto.offset.reset`='earliest';
+  SET `commit.interval.ms`='10000';
+
+  WITH tableCards AS (
+      SELECT TABLE ccNumber, provider,
+      expiry, accountEnabled
+      FROM cc_data
+  );
+
+  WITH joined AS (
+      SELECT STREAM
+          p.provider,
+          p.ccNumber,
+          p.transaction.currency AS currency
+      FROM cc_payments AS p
+      INNER JOIN tableCards AS c ON p.ccNumber = c.ccNumber
+      WHERE c.accountEnabled = 'no'
+  );
+
+  INSERT INTO fraudsDetection
+  SELECT STREAM
+      joined.provider,
+      count(*) attempts
+  FROM joined
+  GROUP BY joined.provider;
+runnerCount: 1
+cluster: EKS-4DJBOW09
+namespace: default
+pipeline: ""
+appId: lsql-fraudsdetection-1322033595
