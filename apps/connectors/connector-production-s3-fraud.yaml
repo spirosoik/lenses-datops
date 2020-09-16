@@ -1,4 +1,4 @@
-clusterName: production
+clusterName: default
 name: s3-fraud
 config:
   connector.class: io.confluent.connect.s3.S3SinkConnector

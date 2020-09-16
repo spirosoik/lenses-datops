@@ -1,4 +1,4 @@
-clusterName: production
+clusterName: default
 name: es-sink
 config:
   connect.elastic.cluster.name: docker-cluster
