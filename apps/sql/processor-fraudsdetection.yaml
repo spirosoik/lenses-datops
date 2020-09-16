@@ -27,7 +27,4 @@ sql: |-
   FROM joined
   GROUP BY joined.provider;
 runnerCount: 1
-cluster: EKS-4DJBOW09
-namespace: default
 pipeline: ""
-appId: lsql-fraudsdetection-1322033595
