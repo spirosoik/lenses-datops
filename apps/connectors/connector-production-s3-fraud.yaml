@@ -1,0 +1,25 @@
+clusterName: default
+name: s3-fraud
+config:
+  connector.class: io.confluent.connect.s3.S3SinkConnector
+  flush.size: "10"
+  format.class: io.confluent.connect.s3.format.json.JsonFormat
+  key.converter: org.apache.kafka.connect.storage.StringConverter
+  key.converter.schemas.enable: "false"
+  locale: en-GB
+  name: s3-fraud
+  partition.duration.ms: "60000"
+  partitioner.class: io.confluent.connect.storage.partitioner.TimeBasedPartitioner
+  path.format: '''year''=YYYY/''month''=MM/''day''=dd/''hour''=HH'
+  rotate.interval.ms: "1000"
+  s3.bucket.name: demo-gitops
+  s3.part.size: "26214400"
+  s3.region: eu-central-1
+  schema.compatibility: NONE
+  storage.class: io.confluent.connect.s3.storage.S3Storage
+  tasks.max: "1"
+  timestamp.extractor: Wallclock
+  timezone: UTC
+  topics: fraudsDetection
+  value.converter: org.apache.kafka.connect.json.JsonConverter
+  value.converter.schemas.enable: "false"

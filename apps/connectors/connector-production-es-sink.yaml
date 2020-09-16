@@ -1,0 +1,16 @@
+clusterName: default
+name: es-sink
+config:
+  connect.elastic.cluster.name: docker-cluster
+  connect.elastic.kcql: INSERT INTO lab_environ SELECT * FROM es-data
+  connect.elastic.url: ${aws:es:protected_url}
+  connect.elastic.use.http: HTTP
+  connect.progress.enabled: "false"
+  connector.class: com.datamountaineer.streamreactor.connect.elastic6.ElasticSinkConnector
+  key.converter: org.apache.kafka.connect.storage.StringConverter
+  key.converter.schemas.enable: "false"
+  name: es-sink
+  tasks.max: "1"
+  topics: es-data
+  value.converter: org.apache.kafka.connect.json.JsonConverter
+  value.converter.schemas.enable: "false"
